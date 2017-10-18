@@ -10,11 +10,14 @@
 
 @implementation TableItem
 
-- (instancetype)initWithAttributedText:(NSAttributedString *)attributedText avatar:(nonnull UIImage *)avatar {
+- (instancetype)initWithNameAttributedText:(NSAttributedString *)nameAttributedText
+                       titleAttributedText:(NSAttributedString *)titleAttributedText
+                               avatarImage:(UIImage *)avatarImage {
     self = [super init];
     if (self) {
-        self.attributedText = attributedText;
-        self.avatar = avatar;
+        _nameAttributedText = nameAttributedText;
+        _titleAttributedText = titleAttributedText;
+        _avatarImage = avatarImage;
     }
     return self;
 }

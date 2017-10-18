@@ -12,35 +12,49 @@
 @interface TableCellNode()
 
 /*
- * textNode.
+ * nameNode.
  */
-@property(nonatomic, strong, nonnull) ASTextNode *textNode;
+@property(nonatomic, strong, nonnull) ASTextNode *nameNode;
+
+
+/*
+ * titleNode.
+ */
+@property(nonatomic, strong, nonnull) ASTextNode *titleNode;
 
 /*
  * ImageNode
  */
-@property(nonatomic, strong, nonnull) ASImageNode *imageNode;
+@property(nonatomic, strong, nonnull) ASImageNode *avatarNode;
 
 @end
 
+const CGFloat kTableCellNodeInsetsMargin = 16;
+const CGFloat kTableCellNodeInnerPadding = 20;
 @implementation TableCellNode
 
 - (instancetype)initWithItem:(TableItem *)item {
     self = [super init];
     if (self) {
-        self.imageNode = ({
+        self.avatarNode = ({
             ASImageNode *node = [ASImageNode new];
-//            node.frame = CGRectMake(10, 10, 40, 40);
             [self addSubnode:node];
-            node.image = item.avatar;
+            node.image = item.avatarImage;
             
             node;
         });
         
-        self.textNode = ({
+        self.nameNode = ({
             ASTextNode *node = [ASTextNode new];
-            node.attributedText = item.attributedText;
-//            node.frame = CGRectMake(60, 10, 200, 40);
+            node.attributedText = item.nameAttributedText;
+            [self addSubnode:node];
+            
+            node;
+        });
+        
+        self.titleNode = ({
+            ASTextNode *node = [ASTextNode new];
+            node.attributedText = item.titleAttributedText;
             [self addSubnode:node];
             
             node;
@@ -54,10 +68,15 @@
 }
 
 - (ASLayoutSpec *)layoutSpecThatFits:(ASSizeRange)constrainedSize {
-    ASStackLayoutSpec *spec = [ASStackLayoutSpec stackLayoutSpecWithDirection:ASStackLayoutDirectionHorizontal spacing:20.f justifyContent:ASStackLayoutJustifyContentStart alignItems:ASStackLayoutAlignItemsStart children:@[self.imageNode, self.textNode]];
-    ASInsetLayoutSpec *insetLayoutSpec = [ASInsetLayoutSpec insetLayoutSpecWithInsets:UIEdgeInsetsMake(10, 10, 10, 0) child:spec];
-    return insetLayoutSpec;
-    
+    ASStackLayoutSpec *vSpec = [ASStackLayoutSpec new];
+    vSpec.direction = ASStackLayoutDirectionVertical;
+    vSpec.spacing = kTableCellNodeInnerPadding;
+    [vSpec setChildren:@[self.nameNode, self.titleNode]];
+    ASStackLayoutSpec *hSpec = [ASStackLayoutSpec new];
+    hSpec.direction = ASStackLayoutDirectionHorizontal;
+    hSpec.spacing = kTableCellNodeInnerPadding;
+    [hSpec setChildren:@[self.avatarNode, vSpec]];
+    return [ASInsetLayoutSpec insetLayoutSpecWithInsets:UIEdgeInsetsMake(kTableCellNodeInsetsMargin, kTableCellNodeInsetsMargin, kTableCellNodeInsetsMargin, kTableCellNodeInsetsMargin) child:hSpec];
 }
 
 @end

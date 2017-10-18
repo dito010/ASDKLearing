@@ -58,12 +58,12 @@
 
 - (void)fetchData {
     NSMutableArray *arrM = [NSMutableArray array];
-    UIImage *avatar = [UIImage imageNamed:@"avatar"];
+    UIImage *avatarImage = [UIImage imageNamed:@"avatar"];
     NSInteger count = 30;
     for (int i = 0; i < count; i++) {
-        NSString *str = [NSString stringWithFormat:@"这是第 %d 行", i];
-        NSAttributedString *attributedText = [[NSAttributedString alloc] initWithString:str attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:16.f], NSForegroundColorAttributeName : [UIColor blackColor]}];
-        TableItem *item = [[TableItem alloc] initWithAttributedText:attributedText avatar:avatar];
+        NSAttributedString *nameAttributedText = [[NSAttributedString alloc] initWithString:@"NewPan" attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:18.f], NSForegroundColorAttributeName : [UIColor blackColor]}];
+        NSAttributedString *titleAttributedText = [[NSAttributedString alloc] initWithString:@"逗比掌握核心科技" attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:16.f], NSForegroundColorAttributeName : [UIColor blackColor]}];
+        TableItem *item = [[TableItem alloc] initWithNameAttributedText:nameAttributedText titleAttributedText:titleAttributedText avatarImage:avatarImage];
         [arrM addObject:item];
     }
     self.items = [arrM copy];
@@ -129,10 +129,11 @@
 - (void)insertNewRowsInTableNoinsertNewRowsInTableNode:(ASTableNode *)node {
     // 在表中添加新的元素.
     NSMutableArray *arrM = [NSMutableArray arrayWithArray:self.items];
-    UIImage *avatar = [UIImage imageNamed:@"avatar"];
+    UIImage *avatarImage = [UIImage imageNamed:@"avatar"];
     for (int i = 0; i < 10; i++) {
-        NSAttributedString *attributedText = [[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"这是第 %lu 行", arrM.count] attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:16.f], NSForegroundColorAttributeName : [UIColor blackColor]}];
-        TableItem *item = [[TableItem alloc] initWithAttributedText:attributedText avatar:avatar];
+        NSAttributedString *nameAttributedText = [[NSAttributedString alloc] initWithString:@"NewPan" attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:18.f], NSForegroundColorAttributeName : [UIColor blackColor]}];
+        NSAttributedString *titleAttributedText = [[NSAttributedString alloc] initWithString:@"逗比掌握核心科技" attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:16.f], NSForegroundColorAttributeName : [UIColor blackColor]}];
+        TableItem *item = [[TableItem alloc] initWithNameAttributedText:nameAttributedText titleAttributedText:titleAttributedText avatarImage:avatarImage];
         [arrM addObject:item];
     }
     self.items = [arrM copy];

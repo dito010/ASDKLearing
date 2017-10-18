@@ -15,14 +15,21 @@ NS_ASSUME_NONNULL_BEGIN
 /*
  * avatar.
  */
-@property(nonatomic, strong, nonnull) UIImage *avatar;
+@property(nonatomic, strong, nonnull) UIImage *avatarImage;
 
 /*
- * attributedText.
+ * nameAttributedText.
  */
-@property(nonatomic, strong, nonnull) NSAttributedString *attributedText;
+@property(nonatomic, copy, nonnull) NSAttributedString *nameAttributedText;
 
-- (instancetype)initWithAttributedText:(NSAttributedString *)attributedText avatar:(UIImage *)avatar;
+/*
+ * titleAttributedText.
+ */
+@property(nonatomic, copy, nonnull) NSAttributedString *titleAttributedText;
+
+- (instancetype)initWithNameAttributedText:(NSAttributedString *)nameAttributedText
+                       titleAttributedText:(NSAttributedString *)titleAttributedText
+                               avatarImage:(UIImage *)avatarImage;
 
 @end
 
